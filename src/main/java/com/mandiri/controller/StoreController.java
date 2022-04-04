@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 public class StoreController {
@@ -37,5 +38,10 @@ public class StoreController {
     @PutMapping("/store")
     public Store updateStore(@Valid @RequestBody Store store){
         return storeService.update(store);
+    }
+
+    @GetMapping("/store/name")
+    public List<Store> getByName(@RequestParam String name){
+        return storeService.getByName(name);
     }
 }

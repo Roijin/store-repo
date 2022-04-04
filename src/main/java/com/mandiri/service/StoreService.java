@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 public class StoreService {
 
@@ -35,6 +37,7 @@ public class StoreService {
         return storeRepository.save(store);
     }
 
+
     public Page<Store> search(Pageable pageable) {
         return storeRepository.findAll(pageable);
     }
@@ -42,5 +45,9 @@ public class StoreService {
 
     public void delete(Integer id) {
         storeRepository.deleteById(id);
+    }
+
+    public List<Store> getByName(String name) {
+        return storeRepository.findAllByName(name);
     }
 }
