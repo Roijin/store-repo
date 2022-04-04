@@ -50,4 +50,8 @@ public class StoreService {
     public List<Store> getByName(String name) {
         return storeRepository.findAllByName(name);
     }
+
+    public List<Store> getByAddress(String address) {
+        return storeRepository.findAllByAddress(address);
+    }
 }
