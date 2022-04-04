@@ -35,6 +35,11 @@ public class StoreController {
         storeService.delete(id);
     }
 
+    @GetMapping("/store/{id}")
+    public Store getById(@PathVariable Integer id){
+        return storeService.getById(id);
+    }
+
     @PutMapping("/store")
     public Store updateStore(@Valid @RequestBody Store store){
         return storeService.update(store);
