@@ -28,4 +28,14 @@ public class StoreController {
         Pageable pageable = PageRequest.of(page - 1, size);
         return storeService.search(pageable);
     }
+
+    @DeleteMapping("/store")
+    public void deleteStore(@RequestParam Integer id){
+        storeService.delete(id);
+    }
+
+    @PutMapping("/store")
+    public Store updateStore(@Valid @RequestBody Store store){
+        return storeService.update(store);
+    }
 }

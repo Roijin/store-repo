@@ -25,6 +25,10 @@ public class Store {
     @NotNull(message = "Missing Store NPWP")
     private String npwp;
 
+    public Integer getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
