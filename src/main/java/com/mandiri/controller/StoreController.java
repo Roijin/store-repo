@@ -49,4 +49,9 @@ public class StoreController {
     public List<Store> getByAddress(@RequestParam String address){
         return storeService.getByAddress(address);
     }
+
+    @GetMapping("/store/phone")
+    public List<Store> getByPhoneNumber(@RequestParam String phoneNumber){
+        return storeService.getByPhoneNumber(phoneNumber);
+    }
 }

@@ -54,4 +54,8 @@ public class StoreService {
     public List<Store> getByAddress(String address) {
         return storeRepository.findAllByAddress(address);
     }
+
+    public List<Store> getByPhoneNumber(String phoneNumber) {
+        return storeRepository.findAllByPhoneNumber(phoneNumber);
+    }
 }
