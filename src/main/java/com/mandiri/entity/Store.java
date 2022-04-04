@@ -1,20 +1,29 @@
 package com.mandiri.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "mst_store")
 public class Store {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Integer id;
 
+    @NotNull(message = "Missing Store Name")
     private String name;
-    private String address;
-    private String siup;
-    private String npwp;
 
+    @NotNull(message = "Missing Store Address")
+    private String address;
+
+    @NotNull(message = "Missing Store Phone Number")
+    private String phoneNumber;
+
+    @NotNull(message = "Missing Store SIUP")
+    private String siup;
+
+    @NotNull(message = "Missing Store NPWP")
+    private String npwp;
 
     public String getName() {
         return name;
@@ -22,6 +31,10 @@ public class Store {
 
     public String getAddress() {
         return address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     public String getSiup() {
