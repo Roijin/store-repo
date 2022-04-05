@@ -24,16 +24,11 @@ public class Stock {
     @Column(name = "stock")
     private Integer stock;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id")
-    private Store store;
+    @Column(name="store_id")
+    private String storeId;
 
-    public Store getStore() {
-        return store;
-    }
-
-    public void setStore(Store store) {
-        this.store = store;
+    public String getStoreId() {
+        return storeId;
     }
 
     public Integer getStock() {

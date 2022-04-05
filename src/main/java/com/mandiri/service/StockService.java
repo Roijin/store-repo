@@ -1,32 +1,42 @@
 package com.mandiri.service;
 
+import com.mandiri.entity.Stock;
+import com.mandiri.repository.StockRepository;
+import com.mandiri.repository.StoreRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
-public class StockService implements CRUDService{
+@Service
+public class StockService implements CRUDService<Stock, String>{
+
+    @Autowired
+    StockRepository stockRepository;
+
 
     @Override
-    public Page findAll(Pageable pageable) {
+    public Page<Stock> findAll(Pageable pageable) {
         return null;
     }
 
     @Override
-    public Object getById(Object o) {
+    public Stock getById(String s) {
         return null;
     }
 
     @Override
-    public Object register(Object o) {
-        return null;
+    public Stock register(Stock stock) {
+        return stockRepository.save(stock);
     }
 
     @Override
-    public void update(Object o) {
+    public void update(Stock stock) {
 
     }
 
     @Override
-    public void deleteById(Object o) {
+    public void deleteById(String s) {
 
     }
 }
