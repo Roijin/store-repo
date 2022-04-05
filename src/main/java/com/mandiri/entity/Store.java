@@ -1,5 +1,7 @@
 package com.mandiri.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -7,8 +9,9 @@ import javax.validation.constraints.NotNull;
 @Table(name = "mst_store")
 public class Store {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(generator = "uuid-generator")
+    @GenericGenerator(name = "uuid-generator", strategy = "uuid")
+    private String id;
 
     @NotNull(message = "Missing Store Name")
     private String name;
@@ -25,7 +28,7 @@ public class Store {
     @NotNull(message = "Missing Store NPWP")
     private String npwp;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 

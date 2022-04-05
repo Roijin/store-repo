@@ -25,18 +25,19 @@ public class StoreController {
     @GetMapping("/store")
     public Page<Store> getStores(
             @RequestParam(defaultValue = "1")Integer page,
-            @RequestParam (defaultValue = "5") Integer size) {
+            @RequestParam (defaultValue = "5") Integer size,
+            @RequestParam (defaultValue = "")String keyword) {
         Pageable pageable = PageRequest.of(page - 1, size);
-        return storeService.search(pageable);
+        return storeService.search(pageable,keyword);
     }
 
     @DeleteMapping("/store")
-    public void deleteStore(@RequestParam Integer id){
+    public void deleteStore(@RequestParam String id){
         storeService.delete(id);
     }
 
     @GetMapping("/store/{id}")
-    public Store getById(@PathVariable Integer id){
+    public Store getById(@PathVariable String id){
         return storeService.getById(id);
     }
 

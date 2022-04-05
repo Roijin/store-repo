@@ -24,7 +24,7 @@ public class StoreService {
         return storeRepository.save(store);
     }
 
-    public Store getById(Integer id){
+    public Store getById(String id){
         if(!storeRepository.existsById(id)){
             String message = String.format(ResponseMessage.RESOURCE_NOT_FOUND, Store.class.getSimpleName(),id);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, message);
@@ -38,12 +38,12 @@ public class StoreService {
     }
 
 
-    public Page<Store> search(Pageable pageable) {
-        return storeRepository.findAll(pageable);
+    public Page<Store> search(Pageable pageable, String keyword) {
+        return storeRepository.findAllByNameContainingOrAddressContainingOrPhoneNumberContaining(keyword,keyword,keyword,pageable);
     }
     
 
-    public void delete(Integer id) {
+    public void delete(String id) {
         storeRepository.deleteById(id);
     }
 
