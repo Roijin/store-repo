@@ -1,10 +1,13 @@
 package com.mandiri.service;
 
 import com.mandiri.constants.ResponseMessage;
+import com.mandiri.dto.CustomPage;
+import com.mandiri.dto.StockItemForm;
 import com.mandiri.entity.Stock;
 import com.mandiri.entity.Store;
 import com.mandiri.repository.StockRepository;
 import com.mandiri.repository.StoreRepository;
+import com.mandiri.specification.StockSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
-public class StockService implements CRUDService<Stock, String>{
+public class StockService implements CRUDService<Stock, StockItemForm, String>{
 
     @Autowired
     StockRepository stockRepository;
@@ -22,8 +25,10 @@ public class StockService implements CRUDService<Stock, String>{
     StoreRepository storeRepository;
 
     @Override
-    public Page<Stock> findAll(Pageable pageable) {
-        return null;
+    public CustomPage<Stock> findAll(StockItemForm stockItemForm, Pageable pageable) {
+        StockSpecification stockSpecification = new StockSpecification(stockItemForm);
+        Page<Stock> stockPage = stockRepository.findAll(stockSpecification,pageable);
+        return new CustomPage<Stock>(stockPage);
     }
 
     @Override
