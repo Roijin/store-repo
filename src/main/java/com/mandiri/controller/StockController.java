@@ -25,4 +25,10 @@ public class StockController {
         stockService.deleteById(id);
     }
 
+    @PutMapping
+    public Stock updateStock(@Valid @RequestBody Stock stock){
+        return stockService.update(stock);
+    }
+
+
 }

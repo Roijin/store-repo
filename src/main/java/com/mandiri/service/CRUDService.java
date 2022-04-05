@@ -8,7 +8,7 @@ public interface CRUDService<T,ID> {
     public Page<T> findAll(Pageable pageable);
     public T getById(ID id);
     public T register(T t);
-    public void update(T t);
+    public T update(T t);
     public void deleteById(ID id);
 
 }

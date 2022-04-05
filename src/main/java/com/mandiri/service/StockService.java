@@ -27,8 +27,13 @@ public class StockService implements CRUDService<Stock, String>{
     }
 
     @Override
-    public Stock getById(String s) {
-        return null;
+    public Stock getById(String id) {
+        if(!stockRepository.existsById(id)){
+            String message = String.format(ResponseMessage.RESOURCE_NOT_FOUND, Store.class.getSimpleName(),id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, message);
+        }
+        return stockRepository.findById(id).get();
+
     }
 
     @Override
@@ -41,8 +46,10 @@ public class StockService implements CRUDService<Stock, String>{
     }
 
     @Override
-    public void update(Stock stock) {
+    public Stock update(Stock stock) {
+        getById(stock.getId());
 
+        return stockRepository.save(stock);
     }
 
     @Override
