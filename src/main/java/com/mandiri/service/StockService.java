@@ -46,7 +46,7 @@ public class StockService implements CRUDService<Stock, String>{
     }
 
     @Override
-    public void deleteById(String s) {
-
+    public void deleteById(String id) {
+        stockRepository.deleteById(id);
     }
 }

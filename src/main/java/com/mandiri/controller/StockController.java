@@ -20,4 +20,9 @@ public class StockController {
         return stockService.register(stock);
     }
 
+    @DeleteMapping
+    public void deleteStock(@RequestParam String id){
+        stockService.deleteById(id);
+    }
+
 }
