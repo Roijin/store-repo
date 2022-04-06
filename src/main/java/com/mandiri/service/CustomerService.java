@@ -1,12 +1,16 @@
 package com.mandiri.service;
 
+import com.mandiri.constants.ResponseMessage;
 import com.mandiri.dto.CustomPage;
 import com.mandiri.dto.CustomerForm;
 import com.mandiri.entity.Customer;
+import com.mandiri.entity.Store;
 import com.mandiri.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class CustomerService implements CRUDService<Customer, CustomerForm,String>{
@@ -20,8 +24,16 @@ public class CustomerService implements CRUDService<Customer, CustomerForm,Strin
     }
 
     @Override
-    public Customer getById(String s) {
-        return null;
+    public Customer getById(String id) {
+        customerValidation(id);
+        return customerRepository.findById(id).get();
+    }
+
+    private void customerValidation(String id) {
+        if(!customerRepository.existsById(id)){
+            String message = String.format(ResponseMessage.RESOURCE_NOT_FOUND, Customer.class.getSimpleName(), id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, message);
+        }
     }
 
     @Override
