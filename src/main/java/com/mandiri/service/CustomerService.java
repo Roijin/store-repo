@@ -4,9 +4,13 @@ import com.mandiri.constants.ResponseMessage;
 import com.mandiri.dto.CustomPage;
 import com.mandiri.dto.CustomerForm;
 import com.mandiri.entity.Customer;
+import com.mandiri.entity.Stock;
 import com.mandiri.entity.Store;
 import com.mandiri.repository.CustomerRepository;
+import com.mandiri.specification.CustomerSpecification;
+import com.mandiri.specification.StockSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -20,7 +24,9 @@ public class CustomerService implements CRUDService<Customer, CustomerForm,Strin
 
     @Override
     public CustomPage<Customer> findAll(CustomerForm customerForm, Pageable pageable) {
-        return null;
+        CustomerSpecification customerSpecification = new CustomerSpecification(customerForm);
+        Page<Customer> customerPage = customerRepository.findAll(customerSpecification,pageable);
+        return new CustomPage<Customer>(customerPage);
     }
 
     @Override

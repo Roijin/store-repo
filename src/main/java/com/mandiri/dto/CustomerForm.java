@@ -2,6 +2,7 @@ package com.mandiri.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 
 public class CustomerForm implements Serializable {
     private final String name;
