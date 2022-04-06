@@ -1,5 +1,8 @@
 package com.mandiri.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -24,15 +27,13 @@ public class Stock {
     @Column(name = "stock")
     private Integer stock;
 
-    @Column(name="store_id")
-    private String storeId;
+    @ManyToOne
+    @JoinColumn(name = "store_id")
+    @JsonIgnoreProperties("items")
+    private Store store;
 
-    public String getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(String storeId) {
-        this.storeId = storeId;
+    public Store getStore() {
+        return store;
     }
 
     public Integer getStock() {

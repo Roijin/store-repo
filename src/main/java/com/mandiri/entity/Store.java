@@ -1,9 +1,12 @@
 package com.mandiri.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name = "mst_store")
@@ -28,6 +31,11 @@ public class Store {
     @NotNull(message = "Missing Store NPWP")
     private String npwp;
 
+    @OneToMany(mappedBy = "store")
+    @JsonIgnoreProperties("store")
+    @JsonManagedReference
+    private List<Stock> items;
+
     public String getId() {
         return id;
     }
@@ -50,5 +58,9 @@ public class Store {
 
     public String getNpwp() {
         return npwp;
+    }
+
+    public List<Stock> getItems() {
+        return items;
     }
 }

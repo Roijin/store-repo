@@ -55,7 +55,7 @@ public class StockService implements CRUDService<Stock, StockItemForm, String>{
 
     @Override
     public Stock register(Stock stock) {
-        storeService.validateStore(stock.getStoreId());
+//        storeService.validateStore(stock.getStoreId());
         return stockRepository.save(stock);
     }
 
