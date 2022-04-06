@@ -47,7 +47,8 @@ public class CustomerService implements CRUDService<Customer, CustomerForm,Strin
     }
 
     @Override
-    public void deleteById(String s) {
-
+    public void deleteById(String id) {
+        customerValidation(id);
+        customerRepository.deleteById(id);
     }
 }
