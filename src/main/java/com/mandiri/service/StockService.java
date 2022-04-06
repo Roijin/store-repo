@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 public class StockService implements CRUDService<Stock, StockItemForm, String>{
 
@@ -22,7 +24,7 @@ public class StockService implements CRUDService<Stock, StockItemForm, String>{
     StockRepository stockRepository;
 
     @Autowired
-    StoreRepository storeRepository;
+    StoreService storeService;
 
     @Override
     public CustomPage<Stock> findAll(StockItemForm stockItemForm, Pageable pageable) {
@@ -33,20 +35,27 @@ public class StockService implements CRUDService<Stock, StockItemForm, String>{
 
     @Override
     public Stock getById(String id) {
-        if(!stockRepository.existsById(id)){
-            String message = String.format(ResponseMessage.RESOURCE_NOT_FOUND, Store.class.getSimpleName(),id);
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, message);
-        }
+        stockValidation(id);
         return stockRepository.findById(id).get();
 
     }
 
-    @Override
-    public Stock register(Stock stock) {
-        if(!storeRepository.existsById(stock.getStoreId())){
-            String message = String.format(ResponseMessage.RESOURCE_NOT_FOUND, Store.class.getSimpleName(),stock.getStoreId());
+    public List<Stock> getByStoreId(String id){
+        storeService.validateStore(id);
+        StockSpecification stockSpecification = new StockSpecification(id);
+        return stockRepository.findAll(stockSpecification);
+    }
+
+    private void stockValidation(String id) {
+        if(!stockRepository.existsById(id)){
+            String message = String.format(ResponseMessage.RESOURCE_NOT_FOUND, Store.class.getSimpleName(), id);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, message);
         }
+    }
+
+    @Override
+    public Stock register(Stock stock) {
+        storeService.validateStore(stock.getStoreId());
         return stockRepository.save(stock);
     }
 

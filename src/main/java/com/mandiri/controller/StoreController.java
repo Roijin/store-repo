@@ -1,6 +1,8 @@
 package com.mandiri.controller;
 
+import com.mandiri.entity.Stock;
 import com.mandiri.entity.Store;
+import com.mandiri.service.StockService;
 import com.mandiri.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +19,9 @@ public class StoreController {
     @Autowired
     StoreService storeService;
 
+    @Autowired
+    StockService stockService;
+
     @PostMapping("/store")
     public Store saveStore(@Valid @RequestBody Store store){
         return storeService.registerStore(store);
@@ -29,6 +34,12 @@ public class StoreController {
             @RequestParam (defaultValue = "")String keyword) {
         Pageable pageable = PageRequest.of(page - 1, size);
         return storeService.search(pageable,keyword);
+    }
+
+    @GetMapping("/store/{id}/stock")
+    public List<Stock> getStockInStore(
+            @PathVariable String id){
+        return stockService.getByStoreId(id);
     }
 
     @DeleteMapping("/store")

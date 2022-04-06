@@ -25,12 +25,15 @@ public class StoreService {
     }
 
     public Store getById(String id){
-        if(!storeRepository.existsById(id)){
-            String message = String.format(ResponseMessage.RESOURCE_NOT_FOUND, Store.class.getSimpleName(),id);
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, message);
-        }
+        validateStore(id);
         return storeRepository.findById(id).get();
 
+    }
+
+    public void validateStore(String id) {
+        if(!storeRepository.existsById(id)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, ResponseMessage.getResourceNotFound(Store.class.getSimpleName(), id));
+        }
     }
 
     public Store registerStore(Store store) {
@@ -44,6 +47,7 @@ public class StoreService {
     
 
     public void delete(String id) {
+
         storeRepository.deleteById(id);
     }
 

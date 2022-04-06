@@ -39,13 +39,14 @@ public class StockController {
             @RequestParam (defaultValue = "1")Integer page,
             @RequestParam (defaultValue = "10") Integer size,
             @RequestParam (defaultValue = "") String searchName,
-            @RequestParam (defaultValue = "0")Integer searchMinPrice,
-            @RequestParam (defaultValue = "0")Integer searchMaxPrice
+            @RequestParam (required = false)Integer searchMinPrice,
+            @RequestParam (required = false)Integer searchMaxPrice
     ){
         StockItemForm stockItemForm = new StockItemForm(searchName,searchMinPrice,searchMaxPrice);
         Pageable pageable = PageRequest.of(page-1,size);
         return stockService.findAll(stockItemForm, pageable);
     }
+
 
 
 }

@@ -31,6 +31,10 @@ public class Stock {
         return storeId;
     }
 
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
+    }
+
     public Integer getStock() {
         return stock;
     }
